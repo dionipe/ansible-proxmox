@@ -1,0 +1,19 @@
+---
+- name : Create VM
+  hosts : {host}
+  tasks:
+  - name: Create VM on node
+    proxmox_kvm:
+      node	  : {node}
+      api_user    : root@pam
+      api_password: {password}
+      api_host    : {host-api}
+      name        : {name-VM}
+      net         : '{"net0":"virtio,bridge=vmbr0"}'
+      boot	  : cdn
+      balloon     : 2048
+      memory	  : 2048
+      cores	  : 2
+      virtio      : '{"virtio0":"name-storage:10"}'
+      storage	  : {name-storage}
+      format	  : raw
