@@ -1,0 +1,15 @@
+---
+- name : Clone VM
+  hosts : {host}
+  tasks:
+  - name: Start Clone VM 
+    proxmox_kvm:
+      node        : {node}
+      api_user    : root@pam
+      api_password: {password}
+      api_host    : {api_host}
+      clone 	  : centos
+      name        : Clone-centos-cloudinit
+      vmid	  : 123 #dari VM ID
+      newid	  : 100 # VM ID Baru
+      timeout     : 300

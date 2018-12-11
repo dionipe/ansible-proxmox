@@ -1,0 +1,13 @@
+---
+- name : Start VM
+  hosts : {host}
+  tasks:
+  - name: Start VM 
+    proxmox_kvm:
+      node        : {nodes}
+      api_user    : root@pam
+      api_password: {Password}
+      api_host    : {api_host}
+      name        : Clone-centos-cloudinit-2
+      state       : started
+      timeout     : 300
