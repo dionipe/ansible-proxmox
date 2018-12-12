@@ -1,0 +1,38 @@
+---
+- name : Clone VM and Update VM
+  hosts : rbdgw-01
+  tasks:
+  - name: Clone VM Cloud INIT node-01
+    proxmox_kvm:
+      node        : rbdgw-01
+      api_user    : root@pam
+      api_password: 123456
+      api_host    : rbdgw-01
+      clone 	  : centos
+      name        : Clone-centos-cloudinit-update
+      target	  : rbdgw-01
+      vmid	  : 100
+      newid	  : 105
+      timeout 	  : 300
+
+  - name : Update VM
+    proxmox_kvm:
+      node        : rbdgw-01
+      api_user    : root@pam
+      api_password: 123456
+      api_host    : rbdgw-01
+      vmid	  : 105
+      balloon     : 4096
+      memory	  : 4096
+      ipconfig	  : '{"ipconfig0":"ip=192.168.89.101/24,gw=192.168.89.254"}'
+      update	  : yes
+
+  - name : Start VM
+    proxmox_kvm:
+      node        : rbdgw-01
+      api_user    : root@pam
+      api_password: 123456
+      api_host    : rbdgw-01
+      vmid	  : 105
+      state       : started
+
